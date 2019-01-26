@@ -12,7 +12,6 @@ namespace Enums
         ENTITY_TOTAL
     }
 
-
     public enum eSoundType
     {
 		SOUND_CLICK,

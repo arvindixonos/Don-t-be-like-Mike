@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+[Serializable]
 public class MouseLook
 {
     public float XSensitivity = 2f;
