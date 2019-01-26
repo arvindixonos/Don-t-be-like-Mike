@@ -5,7 +5,7 @@ using Enums;
 
 public class GameManager : MonoBehaviour
 {
-	public	static	GameManager	Instance = null;
+    public static GameManager Instance = null;
 
     public Player player;
 
@@ -17,21 +17,29 @@ public class GameManager : MonoBehaviour
 
     public bool gameOver = false;
 
-	public	AudioSource		bgmAudioSource;
+    public AudioSource bgmAudioSource;
 
-	public	void FadeBGM(float fadeValue = 0.0f)
-	{
-		
-	}
+    public void FadeBGM(float fadeValue = 0.0f)
+    {
+
+    }
 
     public void Caught(eEntityType entityType)
     {
 
     }
 
+    void Start()
+    {
+        InitLevel();
+    }
+
     public void InitLevel()
     {
+        bgmAudioSource = GetComponent<AudioSource>();
 
+        mom = GameObject.FindGameObjectWithTag("Mom").GetComponent<Parent>();
+        dad = GameObject.FindGameObjectWithTag("Dad").GetComponent<Parent>();
     }
 
     public void StartGame()
@@ -66,12 +74,11 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        DontDestroyOnLoad(this);
+
         if (Instance == null)
             Instance = this;
-    }
-
-    void OnDestroy()
-    {
-        Instance = null;
+        else
+            GameObject.DestroyImmediate(this.gameObject);
     }
 }
