@@ -46,4 +46,12 @@ namespace Enums
 		HOME_OBJECT_FLOWER_WASE,
 		HOME_OBJECT_TOTAL
 	}
+
+	public	enum	eAnimationType
+	{
+		ANIMATION_SLEEP,
+		ANIMATION_BUST,
+		ANIMATION_WALK,
+		ANIMATION_TOTAL
+	}
 }

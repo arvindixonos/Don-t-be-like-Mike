@@ -78,28 +78,34 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance.GameOver)
+            return;
+
         RotateView();
         m_MoveDir.y = 0f;
     }
 
     private void FixedUpdate()
     {
+        if (GameManager.Instance.GameOver)
+            return;
+
         GetInput();
 
         Vector3 desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
 
+        float lerpSpeed = 0.05f;
         float desiredMoveMag = desiredMove.sqrMagnitude;
-        float lerpSpeed = desiredMoveMag;
-
-        if (desiredMoveMag < 0.2f)
+        
+        if(desiredMoveMag < 0.3f)
             lerpSpeed = 1f;
-        else
-            SoundManager.Instance.PlaySound(eSoundType.SOUND_PLAYER_WALK, eSoundSourceType.SOUND_SOURCE_PLAYER,
-                                                0.02f);
 
         moveSpeedInc = Mathf.Lerp(moveSpeedInc, desiredMoveMag, lerpSpeed);
-
         moveSpeedInc = Mathf.Clamp(moveSpeedInc, 0f, 1f);
+
+        if (desiredMoveMag > 0.1f)
+            SoundManager.Instance.PlaySound(eSoundType.SOUND_PLAYER_WALK, eSoundSourceType.SOUND_SOURCE_PLAYER,
+                                                    moveSpeedInc * 0.1f);
 
         m_MoveDir.x = desiredMove.x * (moveSpeed + moveSpeedInc);
         m_MoveDir.z = desiredMove.z * (moveSpeed + moveSpeedInc);
@@ -108,6 +114,12 @@ public class Player : MonoBehaviour
         m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
 
         m_MouseLook.UpdateCursorLock();
+
+        if(Input.GetKeyUp(KeyCode.A))
+        // if(moveSpeedInc > 0.8f)
+        {
+            GameManager.Instance.MadeTooMuchSound();
+        }
     }
 
     private void GetInput()

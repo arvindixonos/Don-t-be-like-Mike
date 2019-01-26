@@ -61,6 +61,8 @@ public class GameManager : MonoBehaviour
 
         mom = GameObject.FindGameObjectWithTag("Mom").GetComponent<Parent>();
         dad = GameObject.FindGameObjectWithTag("Dad").GetComponent<Parent>();
+        player = FindObjectOfType<Player>();
+        
         currentLevelInstance = FindObjectOfType<Level>();
 
         currentLevelInstance.InitLevel();
@@ -75,6 +77,17 @@ public class GameManager : MonoBehaviour
         {
             StartGame();
         }
+    }
+
+    public  void    MadeTooMuchSound()
+    {
+        gameOver = true;
+
+        dad.LookAtPosition(player.transform.position);
+        dad.CaughtPlayer();
+        
+        mom.LookAtPosition(player.transform.position);
+        mom.CaughtPlayer();
     }
 
     public void StartGame()

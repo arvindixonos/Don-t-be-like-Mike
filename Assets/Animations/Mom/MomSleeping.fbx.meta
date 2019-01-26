@@ -181,7 +181,7 @@ ModelImporter:
     400172: Whistle
     400174: Whistle1
     400176: Whistle2
-    7400000: Laying Sleeping
+    7400000: MomSleeping
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -211,7 +211,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Laying Sleeping
+      name: MomSleeping
       takeName: mixamo.com
       firstFrame: 0
       lastFrame: 51

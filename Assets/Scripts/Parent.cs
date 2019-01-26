@@ -7,15 +7,51 @@ public class Parent : MonoBehaviour
 {
     public eEntityType eEntityType = eEntityType.ENTITY_PLAYER;
 
-	public	float	visionRange = 10f;
+    [System.Serializable]
+    public class AnimationInfo
+    {
+        public eAnimationType animationType;
 
-	public	void	CaughtPlayer()
+        public Transform targetTransform;
+
+        public string animationName = "";
+    }
+
+    public AnimationInfo GetAnimationInfo(eAnimationType animationType)
+    {
+        foreach (AnimationInfo animationInfo in animationInfos)
+        {
+            if (animationInfo.animationType == animationType)
+                return animationInfo;
+        }
+
+        return null;
+    }
+
+    public Animator animator;
+
+    public AnimationInfo[] animationInfos;
+
+    public void CaughtPlayer()
+    {
+        AnimationInfo animationInfo = GetAnimationInfo(eAnimationType.ANIMATION_BUST);
+        Transform targetTransform = animationInfo.targetTransform;
+
+        if (targetTransform != null)
+            transform.position = targetTransform.position;
+
+        animator.SetTrigger(animationInfo.animationName);
+    }
+
+    public bool isPlayerVisible()
+    {
+        return false;
+    }
+
+	public	void	LookAtPosition(Vector3 position)
 	{
+		position.y = transform.position.y;
 
-	}
-
-	public	bool	isPlayerVisible()
-	{
-		return false;
+		transform.LookAt(position);
 	}
 }
