@@ -47,9 +47,13 @@ public class Player : MonoBehaviour
             Instance = this;
 			
         m_CharacterController = GetComponent<CharacterController>();
-        // m_MouseLook = new MouseLook();
         m_MouseLook.Init(transform, playerCamera.transform);
     }
+
+	private void StartHeadBob ()
+	{
+
+	}
 
     private void Update()
     {
