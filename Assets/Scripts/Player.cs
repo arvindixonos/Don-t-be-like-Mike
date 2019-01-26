@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     {
         get { return active; }
 
-        set { active = value;}
+        set { active = value; }
     }
 
     public float moveSpeed = 2f;
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
 
     public MouseLook m_MouseLook;
 
-	private Sequence drunkCamSequence;
+    private Sequence drunkCamSequence;
 
     public void CamLookAt(Transform target)
     {
@@ -65,15 +65,15 @@ public class Player : MonoBehaviour
 
     private void StartHeadBob()
     {
-		float randomNum = Rand.Range(2, 7);
-		float steadyDelay = Rand.Range(0f, 0.3f);
-		float speed = 1.5f;
+        float randomNum = Rand.Range(2, 7);
+        float steadyDelay = Rand.Range(0f, 0.3f);
+        float speed = 1.5f;
 
-		drunkCamSequence = DOTween.Sequence();
-		drunkCamSequence.OnComplete(StartHeadBob);
-		drunkCamSequence.Append(drunkCam.DOLocalRotate(new Vector3(0f, 0f, randomNum), speed).SetEase(Ease.OutQuad).SetSpeedBased())
-						.Append(drunkCam.DOLocalRotate(new Vector3(0f, 0f, -randomNum), speed).SetEase(Ease.InOutQuad).SetSpeedBased().SetDelay(steadyDelay))
-						.Append(drunkCam.DOLocalRotate(Vector3.zero, speed/2).SetEase(Ease.InQuad).SetSpeedBased().SetDelay(steadyDelay));
+        drunkCamSequence = DOTween.Sequence();
+        drunkCamSequence.OnComplete(StartHeadBob);
+        drunkCamSequence.Append(drunkCam.DOLocalRotate(new Vector3(0f, 0f, randomNum), speed).SetEase(Ease.OutQuad).SetSpeedBased())
+                        .Append(drunkCam.DOLocalRotate(new Vector3(0f, 0f, -randomNum), speed).SetEase(Ease.InOutQuad).SetSpeedBased().SetDelay(steadyDelay))
+                        .Append(drunkCam.DOLocalRotate(Vector3.zero, speed / 2).SetEase(Ease.InQuad).SetSpeedBased().SetDelay(steadyDelay));
     }
 
     private void Update()
@@ -88,10 +88,20 @@ public class Player : MonoBehaviour
 
         Vector3 desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
 
-        m_MoveDir.x = desiredMove.x * moveSpeed;
-        m_MoveDir.z = desiredMove.z * moveSpeed;
+        float desiredMoveMag = desiredMove.sqrMagnitude;
+        float lerpSpeed = desiredMoveMag;
 
-        m_MoveDir += Physics.gravity * Time.fixedDeltaTime * 2;
+        if(desiredMoveMag < 0.2f)
+            lerpSpeed = 1f;
+
+        moveSpeedInc = Mathf.Lerp(moveSpeedInc, desiredMoveMag, lerpSpeed);
+
+        moveSpeedInc = Mathf.Clamp(moveSpeedInc, 0f, 1f);
+
+        m_MoveDir.x = desiredMove.x * (moveSpeed + moveSpeedInc);
+        m_MoveDir.z = desiredMove.z * (moveSpeed + moveSpeedInc);
+
+        m_MoveDir += Physics.gravity * Time.fixedDeltaTime;
         m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
 
         m_MouseLook.UpdateCursorLock();
