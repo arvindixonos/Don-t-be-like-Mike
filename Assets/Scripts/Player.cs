@@ -91,8 +91,11 @@ public class Player : MonoBehaviour
         float desiredMoveMag = desiredMove.sqrMagnitude;
         float lerpSpeed = desiredMoveMag;
 
-        if(desiredMoveMag < 0.2f)
+        if (desiredMoveMag < 0.2f)
             lerpSpeed = 1f;
+        else
+            SoundManager.Instance.PlaySound(eSoundType.SOUND_PLAYER_WALK, eSoundSourceType.SOUND_SOURCE_PLAYER,
+                                                0.02f);
 
         moveSpeedInc = Mathf.Lerp(moveSpeedInc, desiredMoveMag, lerpSpeed);
 

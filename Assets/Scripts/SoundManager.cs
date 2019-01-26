@@ -51,7 +51,8 @@ public class SoundManager : MonoBehaviour
         return null;
     }
 
-    public void PlaySound(eSoundType soundType, eSoundSourceType soundSourceType = eSoundSourceType.SOUND_SOURCE_GENERAL)
+    public void PlaySound(eSoundType soundType, eSoundSourceType soundSourceType = eSoundSourceType.SOUND_SOURCE_GENERAL,
+        float volume = 0.5f)
     {
         AudioClip clip = GetSoundClip(soundType);
 
@@ -62,6 +63,7 @@ public class SoundManager : MonoBehaviour
 			if(freeAudioSource != null)
 			{
 				freeAudioSource.clip = clip;
+                freeAudioSource.volume = volume;
 				freeAudioSource.Play();
 			}
         }
