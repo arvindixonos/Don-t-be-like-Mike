@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
 
     public MouseLook m_MouseLook;
 
+	private Sequence drunkCamSequence;
+
     public void CamLookAt(Transform target)
     {
 
@@ -63,7 +65,15 @@ public class Player : MonoBehaviour
 
     private void StartHeadBob()
     {
-        // drunkCam.DOLocalMove(new Vector3(Rand.Range))
+		float randomNum = Rand.Range(2, 7);
+		float steadyDelay = Rand.Range(0f, 0.3f);
+		float speed = 1.5f;
+
+		drunkCamSequence = DOTween.Sequence();
+		drunkCamSequence.OnComplete(StartHeadBob);
+		drunkCamSequence.Append(drunkCam.DOLocalRotate(new Vector3(0f, 0f, randomNum), speed).SetEase(Ease.OutQuad).SetSpeedBased())
+						.Append(drunkCam.DOLocalRotate(new Vector3(0f, 0f, -randomNum), speed).SetEase(Ease.InOutQuad).SetSpeedBased().SetDelay(steadyDelay))
+						.Append(drunkCam.DOLocalRotate(Vector3.zero, speed/2).SetEase(Ease.InQuad).SetSpeedBased().SetDelay(steadyDelay));
     }
 
     private void Update()
