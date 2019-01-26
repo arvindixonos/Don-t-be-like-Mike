@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 81874215526609614}
   - component: {fileID: 124732843824186806}
   m_Layer: 0
-  m_Name: FirstPersonCharacter
+  m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,11 +224,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8eb856e97479d34bb32e5047957075f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: LiveWire
-  isActive: 0
   moveSpeed: 2
   moveSpeedInc: 0.1
   playerCamera: {fileID: 20444275158906334}
+  drunkCam: {fileID: 0}
   m_MouseLook:
     XSensitivity: 2
     YSensitivity: 2

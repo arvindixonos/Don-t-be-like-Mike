@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Level1 : Level
 {
-    public override void EndLevel()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public override void InitLevel()
     {
-        throw new System.NotImplementedException();
+        print("Level 1 Init");
+    }
+
+    public override void EndLevel()
+    {
+
     }
 }
