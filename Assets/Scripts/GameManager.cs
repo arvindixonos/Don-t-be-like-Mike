@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
         get { return gameOver; }
     }
 
+
+    public  eLevel      currentLevel = eLevel.LEVEL_1;
+
     public AudioSource bgmAudioSource;
 
     public  Image       bgImage;
@@ -74,11 +77,6 @@ public class GameManager : MonoBehaviour
         retryButton.gameObject.SetActive(true);
     }
 
-    public void CountDownToStart()
-    {
-
-    }
-
     public void RetryClicked()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -86,7 +84,14 @@ public class GameManager : MonoBehaviour
 
     public void LevelComplete()
     {
+        currentLevel = currentLevel + 1;
 
+        if(currentLevel < eLevel.LEVEL_TOTAL)
+        {
+            string levelName = currentLevel.ToString();
+
+            SceneManager.LoadScene(levelName);
+        }
     }
 
     void Awake()
