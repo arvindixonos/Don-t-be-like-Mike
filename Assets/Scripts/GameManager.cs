@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 using Enums;
 
 public class GameManager : MonoBehaviour
@@ -28,17 +29,18 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public  eLevel      currentLevel = eLevel.LEVEL_1;
+    public eLevel currentLevel = eLevel.LEVEL_1;
 
     public AudioSource bgmAudioSource;
 
-    public  Image       bgImage;
-    public  Button      playButton;
-    public  Button      retryButton;
+    public Image bgImage;
+    public Button playButton;
+    public Button retryButton;
 
     public void FadeBGM(float fadeValue = 0.0f)
     {
-
+        bgmAudioSource.DOKill();
+        bgmAudioSource.DOFade(fadeValue, 1f);
     }
 
     public void Caught(eEntityType entityType)
@@ -61,6 +63,13 @@ public class GameManager : MonoBehaviour
         bgImage.gameObject.SetActive(true);
         playButton.gameObject.SetActive(true);
         retryButton.gameObject.SetActive(false);
+
+        FadeBGM(1f);
+
+        if (currentLevel == eLevel.LEVEL_2)
+        {
+            StartGame();
+        }
     }
 
     public void StartGame()
@@ -68,6 +77,8 @@ public class GameManager : MonoBehaviour
         gameStarted = true;
         playButton.gameObject.SetActive(false);
         bgImage.gameObject.SetActive(false);
+
+        FadeBGM(0.2f);
     }
 
     public void EndGame()
@@ -86,7 +97,7 @@ public class GameManager : MonoBehaviour
     {
         currentLevel = currentLevel + 1;
 
-        if(currentLevel < eLevel.LEVEL_TOTAL)
+        if (currentLevel < eLevel.LEVEL_TOTAL)
         {
             string levelName = currentLevel.ToString();
 
