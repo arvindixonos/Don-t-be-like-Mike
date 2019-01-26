@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     private Parent dad;
 
+    private Level   currentLevelInstance = null;
+
     private bool gameStarted = false;
     public bool GameStarted
     {
@@ -59,6 +61,9 @@ public class GameManager : MonoBehaviour
 
         mom = GameObject.FindGameObjectWithTag("Mom").GetComponent<Parent>();
         dad = GameObject.FindGameObjectWithTag("Dad").GetComponent<Parent>();
+        currentLevelInstance = FindObjectOfType<Level>();
+
+        currentLevelInstance.InitLevel();
 
         bgImage.gameObject.SetActive(true);
         playButton.gameObject.SetActive(true);

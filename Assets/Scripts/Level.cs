@@ -6,6 +6,12 @@ public abstract class Level : MonoBehaviour
 {
     public static Level Instance = null;
 
+    public Transform playerStartPosition;
+
+    public Transform momStartPosition;
+
+    public Transform dadStartPosition;
+
     void Awake()
     {
         if (Instance == null)
