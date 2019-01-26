@@ -158,7 +158,7 @@ ModelImporter:
     400150: boss:Spine2
     400152: //RootNode
     7400000: mixamo.com
-    7400002: Silly Dancing
+    7400002: DadDancing
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -188,7 +188,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Silly Dancing
+      name: DadDancing
       takeName: mixamo.com
       firstFrame: 0
       lastFrame: 163
