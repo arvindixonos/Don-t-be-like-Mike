@@ -115,8 +115,8 @@ public class Player : MonoBehaviour
 
         m_MouseLook.UpdateCursorLock();
 
-        if(Input.GetKeyUp(KeyCode.A))
-        // if(moveSpeedInc > 0.8f)
+        // if(Input.GetKeyUp(KeyCode.A))
+        if(moveSpeedInc > 0.8f)
         {
             GameManager.Instance.MadeTooMuchSound();
         }
