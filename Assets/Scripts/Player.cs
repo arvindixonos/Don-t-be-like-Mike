@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using Rand = UnityEngine.Random;
 using Enums;
 
 public class Player : MonoBehaviour
@@ -17,6 +19,8 @@ public class Player : MonoBehaviour
 	public	float	moveSpeedInc = 0.1f;
 
 	public	Camera		playerCamera = null;
+
+	public Transform   drunkCam;
 
     private CharacterController m_CharacterController;
 
@@ -48,11 +52,13 @@ public class Player : MonoBehaviour
 			
         m_CharacterController = GetComponent<CharacterController>();
         m_MouseLook.Init(transform, playerCamera.transform);
+
+		StartHeadBob();
     }
 
 	private void StartHeadBob ()
 	{
-
+		// drunkCam.DOLocalMove(new Vector3(Rand.Range))
 	}
 
     private void Update()
