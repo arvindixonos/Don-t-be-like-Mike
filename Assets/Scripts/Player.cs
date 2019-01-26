@@ -10,17 +10,22 @@ public class Player : MonoBehaviour
 
     public static Player Instance = null;
 
-    public string playerName = "LiveWire";
+    private bool active = false;
 
-    public bool isActive = false;
+    public bool Active
+    {
+        get { return active; }
 
-	public	float	moveSpeed = 2f;
+        set { active = value;}
+    }
 
-	public	float	moveSpeedInc = 0.1f;
+    public float moveSpeed = 2f;
 
-	public	Camera		playerCamera = null;
+    public float moveSpeedInc = 0.1f;
 
-	public Transform   drunkCam;
+    public Camera playerCamera = null;
+
+    public Transform drunkCam;
 
     private CharacterController m_CharacterController;
 
@@ -30,43 +35,43 @@ public class Player : MonoBehaviour
 
     public MouseLook m_MouseLook;
 
-	public	void	CamLookAt(Transform target)
-	{
-		
-	}
+    public void CamLookAt(Transform target)
+    {
 
-	public	void	OnHit(eHomeObject	homeObject)
-	{
+    }
 
-	}
+    public void OnHit(eHomeObject homeObject)
+    {
 
-	void OnDestinationReached()
-	{
+    }
 
-	}
+    void OnDestinationReached()
+    {
+
+    }
 
     void Awake()
     {
         if (Instance == null)
             Instance = this;
-			
+
         m_CharacterController = GetComponent<CharacterController>();
         m_MouseLook.Init(transform, playerCamera.transform);
 
-		StartHeadBob();
+        StartHeadBob();
     }
 
-	private void StartHeadBob ()
-	{
-		// drunkCam.DOLocalMove(new Vector3(Rand.Range))
-	}
+    private void StartHeadBob()
+    {
+        // drunkCam.DOLocalMove(new Vector3(Rand.Range))
+    }
 
     private void Update()
     {
         RotateView();
         m_MoveDir.y = 0f;
     }
-	
+
     private void FixedUpdate()
     {
         GetInput();
@@ -77,7 +82,7 @@ public class Player : MonoBehaviour
         m_MoveDir.z = desiredMove.z * moveSpeed;
 
         m_MoveDir += Physics.gravity * Time.fixedDeltaTime * 2;
-       	m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
+        m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
 
         m_MouseLook.UpdateCursorLock();
     }
@@ -100,8 +105,8 @@ public class Player : MonoBehaviour
         m_MouseLook.LookRotation(transform, playerCamera.transform);
     }
 
-	void OnDestroy()
-	{
-		Instance = null;
-	}
+    void OnDestroy()
+    {
+        Instance = null;
+    }
 }
