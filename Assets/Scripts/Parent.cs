@@ -8,6 +8,9 @@ public class Parent : MonoBehaviour
 {
     public eEntityType eEntityType = eEntityType.ENTITY_PLAYER;
 
+	public	Camera		visionCamera;
+
+
     [System.Serializable]
     public class AnimationInfo
     {
@@ -41,12 +44,19 @@ public class Parent : MonoBehaviour
 
     public void CaughtPlayer()
     {
+		transform.DOKill();
 		SetAnimationState(eAnimationType.ANIMATION_BUST);
     }
 
 	void Start()
 	{
 		SetAnimationState(startAnimation);
+	}
+
+	public	void EnableVision()
+	{
+		StopCoroutine("StartLooking");
+		StartCoroutine("StartLooking");
 	}
 
     public void SetAnimationState(eAnimationType animationType)
@@ -68,10 +78,26 @@ public class Parent : MonoBehaviour
         animator.SetTrigger(animationInfo.animationName);
     }
 
-    public bool isPlayerVisible()
-    {
-        return false;
-    }
+	IEnumerator StartLooking ()
+	{
+		while(true)
+		{
+			yield return new WaitForSeconds(0.5f);
+			Plane[] planes = GeometryUtility.CalculateFrustumPlanes(visionCamera);
+			bool visible = GeometryUtility.TestPlanesAABB(planes, GameManager.Instance.GetPlayerBounds());
+
+			if(visible)
+			{
+				GameManager.Instance.CaughtPlayer();
+				break;
+			}
+
+			if(GameManager.Instance.GameOver)
+			{
+				break;
+			}
+		}
+	}
 
     public void LookAtPosition(Vector3 position)
     {

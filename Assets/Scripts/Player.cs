@@ -118,7 +118,7 @@ public class Player : MonoBehaviour
         // if(Input.GetKeyUp(KeyCode.A))
         if(moveSpeedInc > 0.8f)
         {
-            GameManager.Instance.MadeTooMuchSound();
+            // GameManager.Instance.CaughtPlayer();
         }
     }
 
