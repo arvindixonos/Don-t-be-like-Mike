@@ -140,6 +140,8 @@ public class Player : MonoBehaviour
 
     public void LookAtPosition(Vector3 position)
     {
+        m_MouseLook.SetCursorLock(false);
+
         position.y = transform.position.y;
 
         transform.DOLookAt(position, 0.5f);

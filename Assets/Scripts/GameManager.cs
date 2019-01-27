@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour
     public Image bgImage;
     public Button playButton;
     public Button retryButton;
+    public Image bustedImage;
+
+    public Image missionCompletedImage;
 
     public void FadeBGM(float fadeValue = 0.0f)
     {
@@ -63,8 +66,10 @@ public class GameManager : MonoBehaviour
         bgImage.gameObject.SetActive(true);
         playButton.gameObject.SetActive(true);
         retryButton.gameObject.SetActive(false);
+        bustedImage.gameObject.SetActive(false);
+        missionCompletedImage.gameObject.SetActive(false);
 
-        FadeBGM(0.01f);
+        FadeBGM(0.04f);
 
         if (currentLevel == eLevel.LEVEL_2)
         {
@@ -92,6 +97,8 @@ public class GameManager : MonoBehaviour
 
         player.LookAtPosition(dad.transform.position);
 
+        player.enabled = false;
+
         SoundManager.Instance.PlaySound(eSoundType.SOUND_DAD_HEY, eSoundSourceType.SOUND_SOURCE_DAD,
             0.1f, 0.5f);
 
@@ -99,7 +106,31 @@ public class GameManager : MonoBehaviour
             0.1f, 0.7f);
 
         SoundManager.Instance.PlaySound(eSoundType.SOUND_BUSTED, eSoundSourceType.SOUND_SOURCE_GENERAL,
-            0.2f, 0.9f);
+            0.2f, 1.5f);
+
+        Color color = Color.white;
+        bgImage.gameObject.SetActive(true);
+        bgImage.DOKill();
+        color = bgImage.color;
+        color.a = 0f;
+        bgImage.color = color;
+        bgImage.DOFade(0.8f, 0.3f).SetDelay(1.5f);
+
+        bustedImage.gameObject.SetActive(true);
+        bustedImage.DOKill();
+        color = bustedImage.color;
+        color.a = 0f;
+        bustedImage.color = color;
+        bustedImage.DOFade(1f, 0.3f).SetDelay(1.5f);
+
+        retryButton.gameObject.SetActive(true);
+        retryButton.image.DOKill();
+        color = retryButton.image.color;
+        color.a = 0f;
+        retryButton.image.color = color;
+        retryButton.image.DOFade(1f, 0.3f).SetDelay(1.5f);
+
+        FadeBGM(0.01f);
     }
 
     public void StartGame()
@@ -110,7 +141,11 @@ public class GameManager : MonoBehaviour
 
         player.enabled = true;
 
-        FadeBGM(0.003f);
+        if (currentLevel == eLevel.LEVEL_1)
+            FadeBGM(0.04f);
+        else if (currentLevel == eLevel.LEVEL_2)
+            FadeBGM(0.01f);
+
     }
 
     public void EndGame()
@@ -127,6 +162,8 @@ public class GameManager : MonoBehaviour
 
     public void LevelComplete()
     {
+        gameOver = true;
+
         currentLevel = currentLevel + 1;
 
         if (currentLevel < eLevel.LEVEL_TOTAL)
@@ -135,15 +172,23 @@ public class GameManager : MonoBehaviour
 
             SceneManager.LoadScene(levelName);
         }
+        else
+        {
+            bgImage.gameObject.SetActive(true);
+            bgImage.DOKill();
+            bgImage.DOFade(0f, 0.01f);
+            bgImage.DOFade(0.8f, 0.3f).SetDelay(1.5f);
+
+            missionCompletedImage.gameObject.SetActive(true);
+            missionCompletedImage.DOKill();
+            missionCompletedImage.DOFade(0f, 0.01f);
+            missionCompletedImage.DOFade(1f, 0.3f).SetDelay(1f);
+        }
     }
 
     void Awake()
     {
-        DontDestroyOnLoad(this);
-
         if (Instance == null)
             Instance = this;
-        else
-            GameObject.DestroyImmediate(this.gameObject);
     }
 }
