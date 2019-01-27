@@ -42,6 +42,10 @@ public class GameManager : MonoBehaviour
 
     public Image missionCompletedImage;
 
+    public Image soundIndicator;
+    public  Color   safeColor;
+    public  Color   dangerColor;
+
     public void FadeBGM(float fadeValue = 0.0f)
     {
         bgmAudioSource.DOKill();
@@ -158,6 +162,15 @@ public class GameManager : MonoBehaviour
     public void RetryClicked()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void Update()
+    {
+        if (player != null)
+        {
+            soundIndicator.fillAmount = player.moveSpeedInc;
+            soundIndicator.color = Color.Lerp(safeColor, dangerColor, player.moveSpeedInc + 0.05f);
+        }
     }
 
     public void LevelComplete()

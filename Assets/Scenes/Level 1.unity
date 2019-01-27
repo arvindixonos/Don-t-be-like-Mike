@@ -7158,24 +7158,20 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1603345612301526, guid: 192f27f8d9699f74c94c2a8883a14090, type: 2}
-      propertyPath: m_Name
-      value: Game Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 224618112881790726, guid: 192f27f8d9699f74c94c2a8883a14090,
+    - target: {fileID: 114635054123266344, guid: 192f27f8d9699f74c94c2a8883a14090,
         type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -233
+      propertyPath: safeColor.r
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 224618112881790726, guid: 192f27f8d9699f74c94c2a8883a14090,
+    - target: {fileID: 114635054123266344, guid: 192f27f8d9699f74c94c2a8883a14090,
         type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 256
+      propertyPath: safeColor.g
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 224618112881790726, guid: 192f27f8d9699f74c94c2a8883a14090,
+    - target: {fileID: 114635054123266344, guid: 192f27f8d9699f74c94c2a8883a14090,
         type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 256
+      propertyPath: safeColor.b
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 192f27f8d9699f74c94c2a8883a14090, type: 2}
