@@ -11,12 +11,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance = null;
 
     private Player player;
+    private BoxCollider playerBoxCollider;
 
     private Parent mom;
 
     private Parent dad;
-
-    private Level   currentLevelInstance = null;
 
     private bool gameStarted = false;
     public bool GameStarted
@@ -45,11 +44,6 @@ public class GameManager : MonoBehaviour
         bgmAudioSource.DOFade(fadeValue, 1f);
     }
 
-    public void Caught(eEntityType entityType)
-    {
-
-    }
-
     void Start()
     {
         InitLevel();
@@ -62,11 +56,9 @@ public class GameManager : MonoBehaviour
         mom = GameObject.FindGameObjectWithTag("Mom").GetComponent<Parent>();
         dad = GameObject.FindGameObjectWithTag("Dad").GetComponent<Parent>();
         player = FindObjectOfType<Player>();
+
+        playerBoxCollider = player.GetComponent<BoxCollider>();
         
-        currentLevelInstance = FindObjectOfType<Level>();
-
-        currentLevelInstance.InitLevel();
-
         bgImage.gameObject.SetActive(true);
         playButton.gameObject.SetActive(true);
         retryButton.gameObject.SetActive(false);
@@ -76,10 +68,18 @@ public class GameManager : MonoBehaviour
         if (currentLevel == eLevel.LEVEL_2)
         {
             StartGame();
+
+            mom.EnableVision();
+            dad.EnableVision();
         }
     }
 
-    public  void    MadeTooMuchSound()
+    public  Bounds GetPlayerBounds()
+    {
+        return playerBoxCollider.bounds;
+    }
+
+    public  void    CaughtPlayer()
     {
         gameOver = true;
 
