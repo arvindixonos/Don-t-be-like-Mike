@@ -10,6 +10,8 @@ public class Parent : MonoBehaviour
 
 	public	Camera		visionCamera;
 
+	public	AudioSource		loopAudioSource;
+
 
     [System.Serializable]
     public class AnimationInfo
@@ -44,7 +46,11 @@ public class Parent : MonoBehaviour
 
     public void CaughtPlayer()
     {
+		if(loopAudioSource != null)
+			loopAudioSource.Stop();
+
 		transform.DOKill();
+	
 		SetAnimationState(eAnimationType.ANIMATION_BUST);
     }
 
@@ -75,6 +81,7 @@ public class Parent : MonoBehaviour
 			transform.DOPath(animationInfo.path.wps.ToArray(), 1f).SetSpeedBased().SetEase(Ease.Linear).SetLookAt(0.1f).SetLoops(-1, LoopType.Restart);
 		}
 
+		animator.transform.localPosition = Vector3.zero;
         animator.SetTrigger(animationInfo.animationName);
     }
 
