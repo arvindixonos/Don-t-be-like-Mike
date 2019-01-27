@@ -9,4 +9,12 @@ public class FlowerWase : HomeObject {
     {
         throw new System.NotImplementedException();
     }
+
+    public void OnTriggerEnter (Collider otherObject)
+    {
+        if(otherObject.tag == "Player")
+        {
+            GameManager.Instance.CaughtPlayer();
+        }
+    }
 }
