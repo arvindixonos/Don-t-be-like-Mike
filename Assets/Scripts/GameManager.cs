@@ -88,6 +88,8 @@ public class GameManager : MonoBehaviour
         
         mom.LookAtPosition(player.transform.position);
         mom.CaughtPlayer();
+
+        player.LookAtPosition(dad.transform.position);
     }
 
     public void StartGame()
