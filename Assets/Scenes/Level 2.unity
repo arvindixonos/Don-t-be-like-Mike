@@ -6705,11 +6705,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eEntityType: 1
+  startAnimation: 2
   animator: {fileID: 1260315577}
   animationInfos:
+  - animationType: 2
+    targetTransform: {fileID: 2132594691}
+    animationName: Walk
+    staticPosition: 0
+    path: {fileID: 473025108}
   - animationType: 1
     targetTransform: {fileID: 2132594691}
     animationName: Bust
+    staticPosition: 1
+    path: {fileID: 0}
 --- !u!114 &473025108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6760,7 +6768,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   delay: 0
-  duration: 0.5
+  duration: 1
   easeType: 1
   easeCurve:
     serializedVersion: 2
@@ -6780,15 +6788,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  loops: 1
+  loops: -1
   id: 
   loopType: 0
   orientType: 1
   lookAtTransform: {fileID: 0}
   lookAtPosition: {x: 0, y: 0, z: 0}
-  lookAhead: 0.01
-  autoPlay: 1
-  autoKill: 1
+  lookAhead: 0.1
+  autoPlay: 0
+  autoKill: 0
   relative: 0
   isLocal: 1
   isClosedPath: 1
@@ -7311,7 +7319,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -7404,11 +7412,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eEntityType: 2
+  startAnimation: 3
   animator: {fileID: 1063968771}
   animationInfos:
+  - animationType: 3
+    targetTransform: {fileID: 1641986233}
+    animationName: Dance
+    staticPosition: 1
+    path: {fileID: 0}
   - animationType: 1
     targetTransform: {fileID: 1641986233}
     animationName: Bust
+    staticPosition: 1
+    path: {fileID: 0}
 --- !u!1 &835649692
 GameObject:
   m_ObjectHideFlags: 0
@@ -7716,7 +7732,7 @@ Prefab:
       objectReference: {fileID: 9100000, guid: 35ac58c3df5e3bc4fb3792025d81183e, type: 2}
     - target: {fileID: 9500000, guid: 90be1cadff1b6b648bdf93eeb1134f2b, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 90be1cadff1b6b648bdf93eeb1134f2b, type: 3}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Enums;
+using DG.Tweening;
 
 public class Parent : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class Parent : MonoBehaviour
         public Transform targetTransform;
 
         public string animationName = "";
+
+		public	bool	staticPosition = true;
+
+		public	DOTweenPath	path;
     }
 
     public AnimationInfo GetAnimationInfo(eAnimationType animationType)
@@ -28,17 +33,37 @@ public class Parent : MonoBehaviour
         return null;
     }
 
+    public eAnimationType startAnimation = eAnimationType.ANIMATION_SLEEP;
+
     public Animator animator;
 
     public AnimationInfo[] animationInfos;
 
     public void CaughtPlayer()
     {
-        AnimationInfo animationInfo = GetAnimationInfo(eAnimationType.ANIMATION_BUST);
+		SetAnimationState(eAnimationType.ANIMATION_BUST);
+    }
+
+	void Start()
+	{
+		SetAnimationState(startAnimation);
+	}
+
+    public void SetAnimationState(eAnimationType animationType)
+    {
+        AnimationInfo animationInfo = GetAnimationInfo(animationType);
         Transform targetTransform = animationInfo.targetTransform;
 
         if (targetTransform != null)
             transform.position = targetTransform.position;
+
+		print(animationInfo.animationName);
+
+		if(!animationInfo.staticPosition)
+		{
+			transform.DOKill();
+			transform.DOPath(animationInfo.path.wps.ToArray(), 1f).SetSpeedBased().SetEase(Ease.Linear).SetLookAt(0.1f).SetLoops(-1, LoopType.Restart);
+		}
 
         animator.SetTrigger(animationInfo.animationName);
     }
@@ -48,10 +73,10 @@ public class Parent : MonoBehaviour
         return false;
     }
 
-	public	void	LookAtPosition(Vector3 position)
-	{
-		position.y = transform.position.y;
+    public void LookAtPosition(Vector3 position)
+    {
+        position.y = transform.position.y;
 
-		transform.LookAt(position);
-	}
+        transform.LookAt(position);
+    }
 }
