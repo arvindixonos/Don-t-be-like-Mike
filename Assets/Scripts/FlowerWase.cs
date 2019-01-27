@@ -14,6 +14,9 @@ public class FlowerWase : HomeObject {
     {
         if(otherObject.tag == "Player")
         {
+            SoundManager.Instance.PlaySound(eSoundType.SOUND_FLOWER_WASE_BREAK, eSoundSourceType.SOUND_SOURCE_GENERAL,
+            0.1f, 0f);
+            
             GameManager.Instance.CaughtPlayer();
         }
     }

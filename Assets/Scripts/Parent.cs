@@ -36,7 +36,7 @@ public class Parent : MonoBehaviour
         return null;
     }
 
-    public eAnimationType startAnimation = eAnimationType.ANIMATION_SLEEP;
+    public eAnimationType currentAnimation  = eAnimationType.ANIMATION_SLEEP;
 
     public Animator animator;
 
@@ -50,7 +50,7 @@ public class Parent : MonoBehaviour
 
 	void Start()
 	{
-		SetAnimationState(startAnimation);
+		SetAnimationState(currentAnimation );
 	}
 
 	public	void EnableVision()

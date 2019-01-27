@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
         get { return gameOver; }
     }
 
+    public string[] levelNames;
 
     public eLevel currentLevel = eLevel.LEVEL_1;
 
@@ -58,12 +59,12 @@ public class GameManager : MonoBehaviour
         player = FindObjectOfType<Player>();
 
         playerBoxCollider = player.GetComponent<BoxCollider>();
-        
+
         bgImage.gameObject.SetActive(true);
         playButton.gameObject.SetActive(true);
         retryButton.gameObject.SetActive(false);
 
-        FadeBGM(1f);
+        FadeBGM(0.01f);
 
         if (currentLevel == eLevel.LEVEL_2)
         {
@@ -74,22 +75,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public  Bounds GetPlayerBounds()
+    public Bounds GetPlayerBounds()
     {
         return playerBoxCollider.bounds;
     }
 
-    public  void    CaughtPlayer()
+    public void CaughtPlayer()
     {
         gameOver = true;
 
         dad.LookAtPosition(player.transform.position);
         dad.CaughtPlayer();
-        
+
         mom.LookAtPosition(player.transform.position);
         mom.CaughtPlayer();
 
         player.LookAtPosition(dad.transform.position);
+
+        SoundManager.Instance.PlaySound(eSoundType.SOUND_DAD_HEY, eSoundSourceType.SOUND_SOURCE_DAD,
+            0.1f, 0.5f);
+
+        SoundManager.Instance.PlaySound(eSoundType.SOUND_MOM_HEY, eSoundSourceType.SOUND_SOURCE_MOM,
+            0.1f, 0.7f);
+
+        SoundManager.Instance.PlaySound(eSoundType.SOUND_BUSTED, eSoundSourceType.SOUND_SOURCE_GENERAL,
+            0.2f, 0.9f);
     }
 
     public void StartGame()
@@ -98,7 +108,9 @@ public class GameManager : MonoBehaviour
         playButton.gameObject.SetActive(false);
         bgImage.gameObject.SetActive(false);
 
-        FadeBGM(0.2f);
+        player.enabled = true;
+
+        FadeBGM(0.003f);
     }
 
     public void EndGame()
@@ -119,7 +131,7 @@ public class GameManager : MonoBehaviour
 
         if (currentLevel < eLevel.LEVEL_TOTAL)
         {
-            string levelName = currentLevel.ToString();
+            string levelName = levelNames[(int)currentLevel];
 
             SceneManager.LoadScene(levelName);
         }
