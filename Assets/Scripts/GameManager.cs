@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
         mom.LookAtPosition(player.transform.position);
         mom.CaughtPlayer();
 
-        player.LookAtPosition(dad.transform.position);
+        player.LookAtPosition(dad.visionCamera.transform.position);
 
         player.enabled = false;
 
@@ -168,9 +168,18 @@ public class GameManager : MonoBehaviour
 
         if (currentLevel < eLevel.LEVEL_TOTAL)
         {
-            string levelName = levelNames[(int)currentLevel];
+            CancelInvoke("DelayLoadNextScene");
+            Invoke("DelayLoadNextScene", 5f);
 
-            SceneManager.LoadScene(levelName);
+            bgImage.gameObject.SetActive(true);
+            bgImage.DOKill();
+            bgImage.DOFade(0f, 0.01f);
+            bgImage.DOFade(0.8f, 0.3f).SetDelay(1.5f);
+
+            missionCompletedImage.gameObject.SetActive(true);
+            missionCompletedImage.DOKill();
+            missionCompletedImage.DOFade(0f, 0.01f);
+            missionCompletedImage.DOFade(1f, 0.3f).SetDelay(1f);
         }
         else
         {
@@ -184,6 +193,12 @@ public class GameManager : MonoBehaviour
             missionCompletedImage.DOFade(0f, 0.01f);
             missionCompletedImage.DOFade(1f, 0.3f).SetDelay(1f);
         }
+    }
+
+    void DelayLoadNextScene()
+    {
+        string levelName = levelNames[(int)currentLevel];
+        SceneManager.LoadScene(levelName);
     }
 
     void Awake()
