@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
         get { return gameOver; }
     }
 
+    public  string[]    levelNames;
 
     public eLevel currentLevel = eLevel.LEVEL_1;
 
@@ -119,7 +120,7 @@ public class GameManager : MonoBehaviour
 
         if (currentLevel < eLevel.LEVEL_TOTAL)
         {
-            string levelName = currentLevel.ToString();
+            string levelName = levelNames[(int)currentLevel];
 
             SceneManager.LoadScene(levelName);
         }

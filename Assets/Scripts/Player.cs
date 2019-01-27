@@ -37,19 +37,12 @@ public class Player : MonoBehaviour
 
     private Sequence drunkCamSequence;
 
-    public void CamLookAt(Transform target)
+    void OnTriggerEnter(Collider collider)
     {
-
-    }
-
-    public void OnHit(eHomeObject homeObject)
-    {
-
-    }
-
-    void OnDestinationReached()
-    {
-
+        if(collider.CompareTag("Destination"))
+        {   
+            GameManager.Instance.LevelComplete();
+        }
     }
 
     void Awake()

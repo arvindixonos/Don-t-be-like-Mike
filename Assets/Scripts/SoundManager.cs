@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Enums;
+using DG.Tweening;
 
 public class SoundManager : MonoBehaviour
 {
@@ -52,7 +53,7 @@ public class SoundManager : MonoBehaviour
     }
 
     public void PlaySound(eSoundType soundType, eSoundSourceType soundSourceType = eSoundSourceType.SOUND_SOURCE_GENERAL,
-        float volume = 0.5f)
+        float volume = 0.5f, float delay = 0f)
     {
         AudioClip clip = GetSoundClip(soundType);
 
@@ -64,7 +65,7 @@ public class SoundManager : MonoBehaviour
 			{
 				freeAudioSource.clip = clip;
                 freeAudioSource.volume = volume;
-				freeAudioSource.Play();
+				freeAudioSource.PlayDelayed(delay);
 			}
         }
     }
