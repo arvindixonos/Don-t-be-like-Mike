@@ -144,4 +144,11 @@ public class Player : MonoBehaviour
     {
         Instance = null;
     }
+
+    public void LookAtPosition(Vector3 position)
+    {
+        position.y = transform.position.y;
+
+        transform.DOLookAt(position, 0.5f);
+    }
 }
